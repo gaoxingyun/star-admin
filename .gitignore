@@ -37,5 +37,4 @@ pay-admin/.idea/
 
 pay-admin/web/admin/static/
 pay-admin/web/admin/node_modules/
-
-
+pay-admin/web/admin/build/
