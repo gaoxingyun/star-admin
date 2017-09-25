@@ -18,5 +18,24 @@
 *.tar.gz
 *.rar
 
+### IntelliJ IDEA ###
+*.iws
+*.iml
+*.ipr
+
+
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+### pay-admin
+pay-admin/build/
+pay-admin/out/
+pay-admin/logs/
+pay-admin/.gradle/
+pay-admin/.idea/
+
+pay-admin/web/admin/static/
+pay-admin/web/admin/node_modules/
+
+

@@ -1,0 +1,17 @@
+<div fxLayout="column" fxLayoutAlign="stretch">
+    <header>pay-web</header>
+    <div id='main'>
+        <nav>
+            <md-sidenav mode="side" opened="true">
+                <md-nav-list *ngFor="let menuItem of menuItems">
+                    <h4>{{menuItem.text}}</h4>
+                    <a md-list-item *ngFor="let menu of menuItem.menus" routerLink="{{ menu.href }}" routerLinkActive="active"> {{ menu.text }} </a>
+                </md-nav-list>
+            </md-sidenav>
+        </nav>
+        <article>
+            <router-outlet></router-outlet>
+        </article>
+    </div>
+    <footer>footer</footer>
+</div>
