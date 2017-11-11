@@ -2,7 +2,7 @@ package com.sand.payadmin.common.contant;
 
 public class ShiroContant {
 
-    public final static String JWT_SECRET = "2432532542365";
+    public final static String JWT_SECRET = "432431676787658345345432";
 
     // 过期时间
     public final static Long TLT_MILLIS = new Long(24 * 60 * 60 * 1000);

@@ -90,7 +90,7 @@ logging:
    sand: debug
   org:
    hibernate: debug
-   springframework: warn
+   springframework: debug
    apache:
     shiro: debug
   config: classpath:logback.xml

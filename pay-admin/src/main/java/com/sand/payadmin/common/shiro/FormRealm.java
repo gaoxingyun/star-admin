@@ -67,7 +67,7 @@ public class FormRealm extends AuthorizingRealm {
         if (username == null || password == null) {
             throw new AuthenticationException();
         }
-        User user = authDatabaseService.findUserByName(username);
+        User user = authDatabaseService.findUserByUsername(username);
 
         if (user == null) {
             throw new UnknownAccountException();//没找到帐号 }
@@ -100,11 +100,11 @@ public class FormRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
         Set<String> roles = new HashSet<>();
-        authDatabaseService.findRolesByName(username).forEach(role -> roles.add(role.getName()));
+        authDatabaseService.findRolesByUsername(username).forEach(role -> roles.add(role.getName()));
         authorizationInfo.setRoles(roles);
 
         Set<String> auths = new HashSet<>();
-        authDatabaseService.findAuthsByName(username).forEach(auth -> auths.add(auth.getName()));
+        authDatabaseService.findPermissionsByUsername(username).forEach(auth -> auths.add(auth.getName()));
         authorizationInfo.setStringPermissions(auths);
 
         return authorizationInfo;

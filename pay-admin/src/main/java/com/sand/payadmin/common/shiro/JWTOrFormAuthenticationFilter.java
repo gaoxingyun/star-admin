@@ -79,6 +79,9 @@ public final class JWTOrFormAuthenticationFilter extends AuthenticatingFilter {
         } catch (Exception e) {
             HttpServletResponse httpResponse = WebUtils.toHttp(response);
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            // 需要手动加CORS头
+            httpResponse.setHeader("Access-Control-Allow-Credentials","true");
+            httpResponse.setHeader("Access-Control-Allow-Origin","*");
             return false;
         }
     }

@@ -3,17 +3,16 @@ package com.sand.payadmin.service;
 import com.sand.payadmin.common.contant.AuthConstant;
 import com.sand.payadmin.common.shiro.FormPasswordHelper;
 import com.sand.payadmin.common.util.RandomStringGeneratorUtils;
+import com.sand.payadmin.model.entity.auth.Permission;
+import com.sand.payadmin.model.entity.auth.Role;
 import com.sand.payadmin.model.entity.auth.User;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -65,7 +64,7 @@ public class UserService {
      * @return User
      */
     public User queryUser(String username) {
-        User user = authDatabaseService.findUserByName(username);
+        User user = authDatabaseService.findUserByUsername(username);
         return user;
     }
 
@@ -92,4 +91,26 @@ public class UserService {
     }
 
 
+    /**
+     * 通过用户名查询所有的角色
+     *
+     * @param username
+     * @return
+     */
+    public Set<Role> findAllRoleByUsername(String username) {
+        Set<Role> roles = authDatabaseService.findRolesByUsername(username);
+        return roles;
+    }
+
+
+    /**
+     * 通过用户名查询所有的权限
+     *
+     * @param username
+     * @return
+     */
+    public Set<Permission> findAllPermissionByUsername(String username) {
+        Set<Permission> permissions = authDatabaseService.findPermissionsByUsername(username);
+        return permissions;
+    }
 }

@@ -4,6 +4,8 @@ import com.sand.payadmin.common.contant.ApiContant;
 import com.sand.payadmin.common.contant.ShiroContant;
 import com.sand.payadmin.common.jwt.JwtHelper;
 import com.sand.payadmin.common.util.JacksonUtils;
+import com.sand.payadmin.model.entity.auth.Permission;
+import com.sand.payadmin.model.entity.auth.Role;
 import com.sand.payadmin.model.entity.auth.User;
 import com.sand.payadmin.model.pojo.RestResult;
 import com.sand.payadmin.model.pojo.DataPageResponse;
@@ -64,7 +66,7 @@ public class UserController {
     public RestResult createUser(@RequestBody String request, HttpServletRequest httpServletRequest) {
 
         String parentUsername = JwtHelper.parseJWT(JwtHelper.formatAuthHeadToken(httpServletRequest.getHeader(ShiroContant.AUTHORIZATION_HEADER))).get(ShiroContant.USER_ID).toString();
-        User parentUser = authDatabaseService.findUserByName(parentUsername);
+        User parentUser = authDatabaseService.findUserByUsername(parentUsername);
 
         Map<String, Object> reqMap = JacksonUtils.jsonToBean(request, Map.class);
         String username = reqMap.get("name").toString();
@@ -84,11 +86,11 @@ public class UserController {
 
         Map<String, Object> dataMap = new HashMap<>();
 
-        Map<String, Set> roleMap = new HashMap<>();
+        Set<Role> roles =  userService.findAllRoleByUsername(username);
+        Set<Permission> permissions = userService.findAllPermissionByUsername(username);
 
-        Set<String> roles = new HashSet<>();
-        roles.add("admin");
         dataMap.put("role", roles);
+        dataMap.put("permission", permissions);
         dataMap.put("name", username);
         dataMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
 

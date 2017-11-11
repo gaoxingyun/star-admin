@@ -45,8 +45,8 @@ public class LoginController {
         }
 
         if (subject.isAuthenticated()) {
-            authDatabaseService.updateLastLoginTimeByName(username);
-            User userLogin = authDatabaseService.findUserByName(username);
+            authDatabaseService.updateLastLoginTimeByUsername(username);
+            User userLogin = authDatabaseService.findUserByUsername(username);
             // 在session中存放用户信息
             subject.getSession().setAttribute("userLogin", userLogin);
 

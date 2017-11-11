@@ -14,7 +14,6 @@ public class GroupService {
     @Autowired
     private AuthDatabaseService authDatabaseService;
 
-
     /**
      * 创建组
      *

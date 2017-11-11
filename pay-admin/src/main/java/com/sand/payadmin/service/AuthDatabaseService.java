@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -78,15 +76,15 @@ public class AuthDatabaseService {
     /**
      * 通过用户名查找用户
      */
-    public User findUserByName(String name) {
+    public User findUserByUsername(String name) {
         return userRepository.findByName(name);
     }
 
     /**
      * 通过用户名删除用户
      */
-    public User deleteUserByName(String name) {
-        User user = userRepository.findByName(name);
+    public User deleteUserByName(String username) {
+        User user = userRepository.findByName(username);
         userRepository.delete(user);
         return user;
     }
@@ -94,8 +92,8 @@ public class AuthDatabaseService {
     /**
      * 通过用户名更新最后登录日期
      */
-    public User updateLastLoginTimeByName(String name) {
-        final User user = findUserByName(name);
+    public User updateLastLoginTimeByUsername(String username) {
+        final User user = findUserByUsername(username);
         String lastLoginTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(AuthConstant.USER_TIME_FORMAT));
         user.setLastLoginTime(lastLoginTime);
         return userRepository.save(user);
@@ -104,8 +102,8 @@ public class AuthDatabaseService {
     /**
      * 通过用户名查找用户组
      */
-    public Set<Group> findGroupsByName(String name) {
-        final User user = findUserByName(name);
+    public Set<Group> findGroupsByUsername(String username) {
+        final User user = findUserByUsername(username);
 
         final Set<UserGroup> userGroups = user.getUserGroups();
         final Set<Group> groups = new HashSet<>();
@@ -117,8 +115,8 @@ public class AuthDatabaseService {
     /**
      * 通过用户名查找角色
      */
-    public Set<Role> findRolesByName(String name) {
-        final Set<Group> groups = findGroupsByName(name);
+    public Set<Role> findRolesByUsername(String username) {
+        final Set<Group> groups = findGroupsByUsername(username);
 
         final Set<RoleGroup> roleGroups = new HashSet<>();
         groups.forEach(group -> roleGroups.addAll(group.getRoleGroups()));
@@ -132,8 +130,8 @@ public class AuthDatabaseService {
     /**
      * 通过用户名查找权限
      */
-    public Set<Permission> findAuthsByName(String name) {
-        final Set<Role> roles = findRolesByName(name);
+    public Set<Permission> findPermissionsByUsername(String username) {
+        final Set<Role> roles = findRolesByUsername(username);
 
         final Set<PermissionRole> permissionRoles = new HashSet<>();
         roles.forEach(role -> permissionRoles.addAll(role.getPermissionRoles()));
