@@ -89,7 +89,10 @@ public class UserController {
         Set<Role> roles =  userService.findAllRoleByUsername(username);
         Set<Permission> permissions = userService.findAllPermissionByUsername(username);
 
-        dataMap.put("role", roles);
+        Set<String> rolesTemp = new HashSet<>();
+        rolesTemp.add("sys-auth");
+
+        dataMap.put("role", rolesTemp);
         dataMap.put("permission", permissions);
         dataMap.put("name", username);
         dataMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
